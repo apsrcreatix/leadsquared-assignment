@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* makes width equals to the view port width */
+.w-100vw{
+  width: 100vw;
+}
+
+/* makes height equals to the view port width */
+.h-100vh{
+  height: 100vh;
+}
