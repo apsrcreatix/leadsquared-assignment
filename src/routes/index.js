@@ -7,11 +7,12 @@ import {
 } from "react-router-dom";
 import PAGE_URLS from "./page-urls";
 import * as PAGE_IMPORTS from "./page-imports";
+import { PageLoader } from 'components';
 
 function Routes() {
   return (
     <Router>
-      <Suspense fallback={<div>Loader</div>}>
+      <Suspense fallback={<PageLoader />}>
         <Switch>
           <Route
             exact
