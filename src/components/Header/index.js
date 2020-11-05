@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from 'assets/images/logo.png';
 import CartIcon from 'assets/images/cart.png';
 import { CartInformationContext } from "contexts/CartInformationContext";
-import { SkeletonLoader } from 'pages/Home';
 import $ from 'jquery';
  
 const Header = () => {
@@ -16,13 +15,6 @@ const Header = () => {
     totalCartPrice,
   } = useContext(CartInformationContext);
 
-  useEffect(() => {
-    console.log({localCartInformation})
-    return () => {
-      
-    }
-  }, []);
-  
   return (
     <>
       <nav
@@ -78,7 +70,13 @@ const Header = () => {
                     Object.keys(localCartInformation).map((key, index) => (
                       <div
                         className="col-12 "
-                        key={localCartInformation[key]?.id + "_" + index + "_" + localCartInformation[key].name}
+                        key={
+                          localCartInformation[key]?.id +
+                          "_" +
+                          index +
+                          "_" +
+                          localCartInformation[key].name
+                        }
                       >
                         <div className="p-4 my-3 rounded">
                           <img
@@ -120,7 +118,16 @@ const Header = () => {
                               </div>
                               <button
                                 type="button"
-                                className="btn btn-outline-primary"
+                                className={
+                                  localCartInformation[key].total_quantity ===
+                                  localCartInformation[key]?.quantity
+                                    ? "btn btn btn-secondary text-white"
+                                    : "btn btn btn-outline-primary"
+                                }
+                                disabled={
+                                  localCartInformation[key].total_quantity ===
+                                  localCartInformation[key]?.quantity
+                                }
                                 onClick={() => {
                                   increaseQuantityofProduct(key);
                                 }}
