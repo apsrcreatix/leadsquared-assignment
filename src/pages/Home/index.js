@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <CommonLayout>
-      <div className="container">
+      <div className="container" style={{ minHeight: "calc(100vh - 60px)" }}>
         <div
           className="p-4 rounded"
           style={{

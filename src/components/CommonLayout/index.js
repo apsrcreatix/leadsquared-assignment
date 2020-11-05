@@ -15,7 +15,7 @@ export default function CommonLayout({children}) {
         <div className="w-100 my-5 py-2" />
         {children}
         <div className="w-100 my-5 py-2" />
-        <Footer/>
+        <Footer />
       </div>
     );
 }
