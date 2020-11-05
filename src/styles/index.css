@@ -28,3 +28,38 @@ code {
     width: 20px;
     font-weight: bold;
 }
+
+/* custom loading skeleton */
+.loading-custom {
+   background: linear-gradient(90deg, #88888810, #88888815, #88888810, #88888808,#88888814, #88888812, #88888810, #88888814);
+    background-size: 800% 800%;
+    -webkit-animation: skeleton-loading-custom 5s ease infinite;
+    -moz-animation: skeleton-loading-custom 5s ease infinite;
+    -o-animation: skeleton-loading-custom 5s ease infinite;
+    animation: skeleton-loading-custom 5s ease infinite;
+}
+
+@-webkit-keyframes skeleton-loading-custom {
+    0%{background-position:0% 5%}
+    50%{background-position:100% 96%}
+    100%{background-position:0% 5%}
+}
+@-moz-keyframes skeleton-loading-custom {
+    0%{background-position:0% 5%}
+    50%{background-position:100% 96%}
+    100%{background-position:0% 5%}
+}
+@-o-keyframes skeleton-loading-custom {
+    0%{background-position:0% 5%}
+    50%{background-position:100% 96%}
+    100%{background-position:0% 5%}
+}
+@keyframes skeleton-loading-custom {
+    0%{background-position:0% 5%}
+    50%{background-position:100% 96%}
+    100%{background-position:0% 5%}
+}
+
+.header-shadow{
+      box-shadow: 0 4px 12px 0 rgba(0,0,0,.05);
+}
