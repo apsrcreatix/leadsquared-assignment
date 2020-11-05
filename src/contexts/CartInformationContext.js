@@ -32,7 +32,7 @@ const CartInformationProvider = ({ children }) => {
     try {
       const response = await unauthenticatedAxios.get(GET_PRODUCT_LIST.URL);
       setter(
-        response?.data?.data.map((item) => ({
+        response?.data?.data?.map((item) => ({
           id: Number(item.id),
           name: item?.name,
           description: item?.description,
