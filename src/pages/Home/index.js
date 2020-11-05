@@ -11,11 +11,25 @@ export default function Home() {
   useEffect(() => {
     getProductList(setItems);
     return () => {};
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <CommonLayout>
       <div className="container">
+        <div
+          className="p-4 rounded"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.10)), url(https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=655&q=50)",
+          }}
+        >
+          <h1 className="display-4 text-white mb-0">Shop the Exclusive</h1>
+          <p className="lead text-light mb-0">
+            Whoever said that money can't buy happiness simply didn't know where
+            to go shopping
+          </p>
+        </div>
         <div className="row">
           {items?.length ? (
             items.map((item, index) => (
@@ -23,7 +37,7 @@ export default function Home() {
                 className="col-xl-3 col-lg-4 col-md-6 col-12 "
                 key={item?.id + "_" + item?.name + "_" + index}
               >
-                <div className="p-4 my-3 rounded shadow-on-hover">
+                <div className="p-4 my-3 rounded shadow-on-hover bg-white">
                   <img
                     className="py-2"
                     src={item?.image}
@@ -56,7 +70,9 @@ export default function Home() {
                       }}
                     >
                       {item.total_quantity ===
-                        localCartInformation[item.id]?.quantity ? "Out of Stock" : "Add to Cart"}
+                      localCartInformation[item.id]?.quantity
+                        ? "Out of Stock"
+                        : "Add to Cart"}
                     </button>
                   }
                 </div>
