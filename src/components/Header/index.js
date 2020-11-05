@@ -22,7 +22,7 @@ const Header = () => {
         className="header-shadow navbar navbar-expand-lg navbar-light bg-white fixed-top px-4"
       >
         <Link className="navbar-brand" to="/">
-          <img src={Logo} alt={"Logo"} style={{ ...iconStyle }} />
+          <img src={Logo} alt={"Logo"} style={{ ...iconStyle }} /> <span className="h6 px-1 text-primary text-uppercase font-weight-bold" style={{letterSpacing: '2px'}}> Shop Express</span>
         </Link>
         <div
           role="button"
