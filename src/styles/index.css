@@ -74,3 +74,31 @@ code {
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.05);
   transform: scale(1.1);
 }
+
+button:focus, input:focus{
+  outline: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #17a2b840; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #17a2b8; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #17a2b896; 
+}
+
+::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
