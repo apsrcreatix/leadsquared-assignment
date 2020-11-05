@@ -1,11 +1,13 @@
 import { useState, useEffect, useContext, Fragment } from "react";
 import { CommonLayout } from "components";
 import { AxiosContext } from "contexts/AxiosContext";
+import { CartInformationContext } from "contexts/CartInformationContext";
 import { GET_PRODUCT_LIST } from "api";
 
 export default function Home() {
   const [items, setItems] = useState();
   const { unauthenticatedAxios } = useContext(AxiosContext);
+  const { addProductToCart } = useContext(CartInformationContext);
 
   useEffect(() => {
     async function fetchContent() {
@@ -26,21 +28,31 @@ export default function Home() {
         <div className="row">
           {items?.length ? (
             items.map((item) => (
-              <div className="col-xl-3 col-lg-4 col-md-6 col-12" key={item?.id}>
-                <div className="p-4 my-3 rounded">
+              <div
+                className="col-xl-3 col-lg-4 col-md-6 col-12 "
+                key={item?.id}
+              >
+                <div className="p-4 my-3 rounded shadow-on-hover">
                   <img
                     className="py-2"
                     src={item?.image}
                     alt={item?.name}
                     style={{ width: "100%" }}
                   />
-                  <h1 className="h5 py-1 mb-0 text-center">{item?.name}</h1>
-                  <h6 className="pb-1 text-truncate text-center text-secondary">
+                  <p className="text-secondary py-1 mb-0 text-truncate">
+                    {item?.name}
+                  </p>
+                  <h6 className="pb-1 text-truncate text-dark text-truncate">
                     Rs. {item?.price}
                   </h6>
-                  <button className="btn btn btn-outline-primary w-100 text-center">
-                    Add to Cart
-                  </button>
+                  {
+                    <button
+                      className="btn btn btn-outline-primary w-100"
+                      onClick={() => addProductToCart(item)}
+                    >
+                      Add to Cart
+                    </button>
+                  }
                 </div>
               </div>
             ))
