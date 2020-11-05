@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from 'routes';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap';
-import 'jquery';
 import 'styles/index.css';
+import 'jquery';
+import "bootstrap";
 import "styles/bootstrap-custom-theme.scss";
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Routes />
