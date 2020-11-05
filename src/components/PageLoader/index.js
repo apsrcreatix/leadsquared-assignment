@@ -1,11 +1,10 @@
 import React from 'react';
+import Loader from '../Loader';
 
 const PageLoader = () => {
     return (
       <div className="d-flex justify-content-center align-items-center w-100vw h-100vh">
-        <div className="spinner-border text-primary" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
+        <Loader type="primary"/>
       </div>
     );
 }
