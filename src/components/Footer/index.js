@@ -18,7 +18,7 @@ const Footer = () => (
         </p>
       </div>
       <div className="col-xl-6 col-12">
-        <p className="text-xl-right text-center mb-0">
+        <div className="text-xl-right text-center mb-0 w-100">
           <small>
             A product by{" "}
             <a className="text-white" href="https://github.com/apsrcreatix">
@@ -29,7 +29,7 @@ const Footer = () => (
           <p className="lead px-1 mb-0" style={{ fontSize: "10px" }}>
             Made with ☮️ in India
           </p>
-        </p>
+        </div>
       </div>
     </div>
   </footer>
