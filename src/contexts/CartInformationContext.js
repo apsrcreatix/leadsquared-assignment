@@ -1,63 +1,94 @@
-import { createContext, useEffect, useState } from "react";
-import { useLocalStorage } from "react-use";
+import React, { createContext, useEffect, useState, useContext } from "react";
+import { AxiosContext } from "contexts/AxiosContext";
+import { GET_PRODUCT_LIST } from "api";
 
 const CartInformationContext = createContext();
 const { Provider } = CartInformationContext;
 
 const CartInformationProvider = ({ children }) => {
-  const [
-    localCartInformation,
-    setLocalCartInformation,
-    removeLocalCartInformation,
-  ] = useLocalStorage("localCartInformation", []);
-  const [totalCartPrice, setTotalCartPrice] = useState();
+  const [localCartInformation, setLocalCartInformation] = useState({});
+
+  const [totalCartPrice, setTotalCartPrice] = useState(0);
+
+  const { unauthenticatedAxios } = useContext(AxiosContext);
 
   useEffect(() => {
+    let totalPrice = 0;
+    for (const index in localCartInformation) {
+      totalPrice =
+        totalPrice +
+        Number(localCartInformation[index].quantity) *
+          Number(localCartInformation[index].price);
+    }
+    setTotalCartPrice(totalPrice);
     return () => {};
-  }, []);
+  }, [localCartInformation]);
+
+  async function getProductList(setter) {
+    try {
+      const response = await unauthenticatedAxios.get(GET_PRODUCT_LIST.URL);
+      setter(
+        response?.data?.data.map((item) => ({
+          id: Number(item.id),
+          name: item?.name,
+          description: item?.description,
+          price: Number(item.price),
+          total_quantity: Number(item.quantity),
+          image: item?.image,
+        }))
+      );
+    } catch (error) {
+      console.error({ error });
+    }
+  }
+
+  const removeLocalCartInformation = () => {
+    setLocalCartInformation({});
+  };
 
   const addProductToCart = (data) => {
-    let isAddedFirstTime = true;
-    let copyOfLocalData = localCartInformation;
-    for (let i = 0; i < localCartInformation?.length; i++) {
-      if (localCartInformation[i].id === data.id) {
-        copyOfLocalData[i].quantity += 1;
-        isAddedFirstTime = false;
-        break;
-      }
-    }
-    if (isAddedFirstTime) {
-       copyOfLocalData.push(data);
-       setLocalCartInformation(copyOfLocalData);
+    let copyOfLocalData = Object.assign({}, localCartInformation);
+    let index = data.id;
+
+    if (localCartInformation[index] !== undefined) {
+      copyOfLocalData[index].quantity =
+        Number(copyOfLocalData[index].quantity) + 1;
+      setLocalCartInformation(copyOfLocalData);
     } else {
-           setLocalCartInformation(copyOfLocalData);
+      data.quantity = 1;
+      copyOfLocalData[index] = data;
+      setLocalCartInformation(copyOfLocalData);
     }
   };
 
   const increaseQuantityofProduct = (positionOfItem) => {
-    let copyOfLocalData = localCartInformation;
-    copyOfLocalData[positionOfItem].quantity += 1;
+    let copyOfLocalData = Object.assign({}, localCartInformation);
+    copyOfLocalData[positionOfItem].quantity =
+      Number(copyOfLocalData[positionOfItem].quantity) + 1;
     setLocalCartInformation(copyOfLocalData);
   };
 
   const decreaseQuantityOfProduct = (positionOfItem) => {
-    let copyOfLocalData = localCartInformation;
-    copyOfLocalData.splice(positionOfItem, 1);
-    setLocalCartInformation(copyOfLocalData);
-  };
+    let copyOfLocalData = Object.assign({}, localCartInformation);
 
-  const HelloCart = () => {
-    console.log("CART HAS BEEN SUCCESSFULLY LOADED.");
+    if (copyOfLocalData[positionOfItem].quantity > 1)
+      copyOfLocalData[positionOfItem].quantity =
+        Number(copyOfLocalData[positionOfItem].quantity) - 1;
+    else delete copyOfLocalData[positionOfItem];
+
+    setLocalCartInformation(copyOfLocalData);
   };
 
   return (
     <Provider
       value={{
-        HelloCart,
-        addProductToCart,
-        decreaseQuantityOfProduct,
-        increaseQuantityofProduct,
+        addProductToCart: (data) => addProductToCart(data),
+        decreaseQuantityOfProduct: (key) => decreaseQuantityOfProduct(key),
+        increaseQuantityofProduct: (key) => increaseQuantityofProduct(key),
         localCartInformation,
+        totalCartPrice,
+        removeLocalCartInformation: () => removeLocalCartInformation(),
+        getProductList,
       }}
     >
       {children}
