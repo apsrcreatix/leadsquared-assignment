@@ -6,9 +6,9 @@ const { Provider } = AxiosContext;
 
 const AxiosProvider = ({ children }) => {
   const unauthenticatedAxios = axios.create({
-    baseURL: process.env.REACT_APP_API_ENDPOINT,
+    baseURL: process.env.REACT_APP_API_ENDPOINT || "https://run.mocky.io",
   });
-
+  console.log({ URL: process.env.REACT_APP_API_ENDPOINT });
   unauthenticatedAxios.interceptors.response.use(
     (response) => {
       return response;

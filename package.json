@@ -16,13 +16,15 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-use": "^15.3.4",
+    "serve": "^11.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "shortcut": "react-scripts build && serve -s build"
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +44,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://run.mocky.io/v3/"
+  "proxy": "https://run.mocky.io"
 }
