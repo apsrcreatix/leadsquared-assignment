@@ -13,14 +13,18 @@ const CartInformationProvider = ({ children }) => {
   const { unauthenticatedAxios } = useContext(AxiosContext);
 
   useEffect(() => {
-    let totalPrice = 0;
-    for (const index in localCartInformation) {
-      totalPrice =
-        totalPrice +
-        Number(localCartInformation[index].quantity) *
-          Number(localCartInformation[index].price);
+    try {
+      let totalPrice = 0;
+      for (const index in localCartInformation) {
+        totalPrice =
+          totalPrice +
+          Number(localCartInformation[index].quantity) *
+            Number(localCartInformation[index].price);
+      }
+      setTotalCartPrice(totalPrice);
+    } catch (error) {
+      console.error({ UE_TP: error });
     }
-    setTotalCartPrice(totalPrice);
     return () => {};
   }, [localCartInformation]);
 
@@ -38,7 +42,7 @@ const CartInformationProvider = ({ children }) => {
         }))
       );
     } catch (error) {
-      console.error({ error });
+      console.error({ GPL: error });
     }
   }
 
@@ -47,36 +51,48 @@ const CartInformationProvider = ({ children }) => {
   };
 
   const addProductToCart = (data) => {
-    let copyOfLocalData = Object.assign({}, localCartInformation);
-    let index = data.id;
+    try {
+      let copyOfLocalData = Object.assign({}, localCartInformation);
+      let index = data.id;
 
-    if (localCartInformation[index] !== undefined) {
-      copyOfLocalData[index].quantity =
-        Number(copyOfLocalData[index].quantity) + 1;
-      setLocalCartInformation(copyOfLocalData);
-    } else {
-      data.quantity = 1;
-      copyOfLocalData[index] = data;
-      setLocalCartInformation(copyOfLocalData);
+      if (localCartInformation[index] !== undefined) {
+        copyOfLocalData[index].quantity =
+          Number(copyOfLocalData[index].quantity) + 1;
+        setLocalCartInformation(copyOfLocalData);
+      } else {
+        data.quantity = 1;
+        copyOfLocalData[index] = data;
+        setLocalCartInformation(copyOfLocalData);
+      }
+    } catch (error) {
+      console.error({ APTC: error });
     }
   };
 
   const increaseQuantityofProduct = (positionOfItem) => {
-    let copyOfLocalData = Object.assign({}, localCartInformation);
-    copyOfLocalData[positionOfItem].quantity =
-      Number(copyOfLocalData[positionOfItem].quantity) + 1;
-    setLocalCartInformation(copyOfLocalData);
+    try {
+      let copyOfLocalData = Object.assign({}, localCartInformation);
+      copyOfLocalData[positionOfItem].quantity =
+        Number(copyOfLocalData[positionOfItem].quantity) + 1;
+      setLocalCartInformation(copyOfLocalData);
+    } catch (error) {
+      console.error({ IQP: error });
+    }
   };
 
   const decreaseQuantityOfProduct = (positionOfItem) => {
-    let copyOfLocalData = Object.assign({}, localCartInformation);
+    try {
+      let copyOfLocalData = Object.assign({}, localCartInformation);
 
-    if (copyOfLocalData[positionOfItem].quantity > 1)
-      copyOfLocalData[positionOfItem].quantity =
-        Number(copyOfLocalData[positionOfItem].quantity) - 1;
-    else delete copyOfLocalData[positionOfItem];
+      if (copyOfLocalData[positionOfItem].quantity > 1)
+        copyOfLocalData[positionOfItem].quantity =
+          Number(copyOfLocalData[positionOfItem].quantity) - 1;
+      else delete copyOfLocalData[positionOfItem];
 
-    setLocalCartInformation(copyOfLocalData);
+      setLocalCartInformation(copyOfLocalData);
+    } catch (error) {
+      console.error({ DQP: error });
+    }
   };
 
   return (
