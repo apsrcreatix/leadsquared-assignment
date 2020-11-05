@@ -39,8 +39,11 @@ export default function Home() {
                     alt={item?.name}
                     style={{ width: "100%" }}
                   />
-                  <p className="text-secondary py-1 mb-0 text-truncate">
+                  <p className="text-dark pt-1 mb-0 text-truncate">
                     {item?.name}
+                  </p>
+                  <p className="text-secondary font-weight-lighter pb-1 mb-0 text-truncate">
+                    {item?.description}
                   </p>
                   <h6 className="pb-1 text-truncate text-dark text-truncate">
                     Rs. {item?.price}
