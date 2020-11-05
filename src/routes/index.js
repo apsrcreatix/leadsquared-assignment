@@ -1,21 +1,16 @@
-
 import { Suspense } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PAGE_URLS from "./page-urls";
 import * as PAGE_IMPORTS from "./page-imports";
-import { PageLoader } from 'components';
-import AxiosContext from 'contexts/AxiosContext';
-import CartInformationContext from "contexts/CartInformationContext";
+import { PageLoader } from "components";
+import { AxiosProvider } from "contexts/AxiosContext";
+import { CartInformationProvider } from "contexts/CartInformationContext";
 
 function Routes() {
   return (
     <Router>
-      <AxiosContext>
-        <CartInformationContext>
+      <AxiosProvider>
+        <CartInformationProvider>
           <Suspense fallback={<PageLoader />}>
             <Switch>
               <Route
@@ -25,8 +20,8 @@ function Routes() {
               />
             </Switch>
           </Suspense>
-        </CartInformationContext>
-      </AxiosContext>
+        </CartInformationProvider>
+      </AxiosProvider>
     </Router>
   );
 }
