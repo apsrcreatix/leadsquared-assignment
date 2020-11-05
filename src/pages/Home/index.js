@@ -1,24 +1,15 @@
 import { useState, useEffect, useContext, Fragment } from "react";
 import { CommonLayout } from "components";
-import { AxiosContext } from "contexts/AxiosContext";
 import { CartInformationContext } from "contexts/CartInformationContext";
-import { GET_PRODUCT_LIST } from "api";
 
 export default function Home() {
   const [items, setItems] = useState();
-  const { unauthenticatedAxios } = useContext(AxiosContext);
-  const { addProductToCart } = useContext(CartInformationContext);
+  const { addProductToCart, getProductList, localCartInformation } = useContext(
+    CartInformationContext
+  );
 
   useEffect(() => {
-    async function fetchContent() {
-      try {
-        const response = await unauthenticatedAxios.get(GET_PRODUCT_LIST.URL);
-        setItems(response?.data?.data);
-      } catch (error) {
-        console.error({ error });
-      }
-    }
-    fetchContent();
+    getProductList(setItems);
     return () => {};
   }, []);
 
@@ -27,10 +18,10 @@ export default function Home() {
       <div className="container">
         <div className="row">
           {items?.length ? (
-            items.map((item) => (
+            items.map((item, index) => (
               <div
                 className="col-xl-3 col-lg-4 col-md-6 col-12 "
-                key={item?.id}
+                key={item?.id + "_" + item?.name + "_" + index}
               >
                 <div className="p-4 my-3 rounded shadow-on-hover">
                   <img
@@ -50,10 +41,22 @@ export default function Home() {
                   </h6>
                   {
                     <button
-                      className="btn btn btn-outline-primary w-100"
-                      onClick={() => addProductToCart(item)}
+                      className={
+                        item.total_quantity ===
+                        localCartInformation[item.id]?.quantity
+                          ? "btn btn btn-secondary text-white w-100"
+                          : "btn btn btn-outline-primary w-100"
+                      }
+                      disabled={
+                        item.total_quantity ===
+                        localCartInformation[item.id]?.quantity
+                      }
+                      onClick={() => {
+                        addProductToCart(item);
+                      }}
                     >
-                      Add to Cart
+                      {item.total_quantity ===
+                        localCartInformation[item.id]?.quantity ? "Out of Stock" : "Add to Cart"}
                     </button>
                   }
                 </div>
@@ -68,11 +71,14 @@ export default function Home() {
   );
 }
 
-export const SkeletonLoader = () => {
+export const SkeletonLoader = ({mobileOnly}) => {
   return (
     <Fragment>
       {[1, 2, 3].map((item) => (
-        <div className=" col-xl-4 col-lg-4 col-md-6 col-12 p-4" key={item}>
+        <div
+          className={!mobileOnly ? "col-xl-4 col-lg-4 col-md-6 col-12 p-4" : "col-12"}
+          key={item}
+        >
           <div className="loading-custom skeleton-loading-custom p-4 rounded w-100">
             <div
               className="loading-custom skeleton-loading-custom m-3 rounded p-5"
