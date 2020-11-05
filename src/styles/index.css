@@ -20,3 +20,11 @@ code {
 .h-100vh{
   height: 100vh;
 }
+
+.counter-circle{
+  font-size: 12px;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    font-weight: bold;
+}
