@@ -31,6 +31,5 @@ npm run shortcut
 
 ## Preview
 
-<img src="https://giphy.com/embed/mq8iY46p3Eybv4y9Aq" alt="preview" />
-
-<img src="https://giphy.com/embed/mq8iY46p3Eybv4y9Aq" alt="preview" />
+![Preview](https://media.giphy.com/media/5idUJgNGMIQLI8VgVF/giphy.gif)
+![Preview](https://media.giphy.com/media/mq8iY46p3Eybv4y9Aq/giphy.gif)
